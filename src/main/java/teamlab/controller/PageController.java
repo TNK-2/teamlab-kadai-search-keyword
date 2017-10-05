@@ -26,8 +26,7 @@ public class PageController {
         long start = System.nanoTime();
 
         List<UserPage> list = pageService.findUserViewedPage(keyword);
-        list.stream()
-        .forEach(e -> System.out.println("ID : " + e.pageId + " name : " + e.pageTitle));
+
         long estimatedTime = System.nanoTime() - start;
 
         model.addAttribute("userpages", list);
