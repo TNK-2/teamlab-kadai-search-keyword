@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Berserker index page</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <p>Hello, チームラボ!</p>
+  <p>検索時間 <span th:text="${searchtime}"></span> ナノ秒</p>
+  <p>ユーザ一覧</p>
+  <ul th:each="userpage : ${userpages}">
+    <li th:text="${userpage.userId}"></li>
+    <li th:text="${userpage.userName}"></li>
+    <li th:text="${userpage.pageId}"></li>
+    <li th:text="${userpage.pageTitle}"></li>
+    <li th:text="${userpage.viewCount}"></li>
+  </ul>
+</body>
+</html>
