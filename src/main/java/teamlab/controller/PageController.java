@@ -19,19 +19,25 @@ public class PageController {
     @Autowired
     private PageService pageService;
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index() {
+        return "index";
+    }
+
     //page?keyword=テスト
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     @Transactional
     public String get(Model model, @RequestParam("keyword") String keyword) {
-        long start = System.nanoTime();
+        long start = System.currentTimeMillis();
 
         List<UserPage> list = pageService.findUserViewedPage(keyword);
 
-        long estimatedTime = System.nanoTime() - start;
+        long estimatedTime = System.currentTimeMillis() - start;
 
         model.addAttribute("userpages", list);
         model.addAttribute("searchtime", estimatedTime);
+        model.addAttribute("result", list.size());
 
-        return "index";
+        return "page";
     }
 }

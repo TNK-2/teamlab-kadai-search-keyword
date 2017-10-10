@@ -6,15 +6,7 @@
   <meta charset="UTF-8"/>
 </head>
 <body>
-  <p>Hello, チームラボ!</p>
-  <p>検索時間 <span th:text="${searchtime}"></span> ナノ秒</p>
-  <p>ユーザ一覧</p>
-  <ul th:each="userpage : ${userpages}">
-    <li th:text="${userpage.userId}"></li>
-    <li th:text="${userpage.userName}"></li>
-    <li th:text="${userpage.pageId}"></li>
-    <li th:text="${userpage.pageTitle}"></li>
-    <li th:text="${userpage.viewCount}"></li>
-  </ul>
+  <p>ホームページ！</p>
+  <p><a href="/page?keyword=a">検索ページ</a>へ移動ください。</p>
 </body>
 </html>
