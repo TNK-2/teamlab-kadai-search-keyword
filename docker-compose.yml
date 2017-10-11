@@ -1,3 +1,4 @@
+#dockerid：https://hub.docker.com/の自分DockerId(ログインID)で切り替えください
 version: '2'
 services:
     db:
@@ -13,8 +14,7 @@ services:
             MYSQL_PASSWORD: docker
             MYSQL_ROOT_PASSWORD: hoge
     app:
-        build: .
-        image: kadai/teamlab-spring-boot-docker
+        image: dockerid/teamlab-spring-boot-docker
         depends_on: 
             - db
         ports:
@@ -23,7 +23,7 @@ services:
             - .:/app
         environment:
             spring.datasource.driverClassName: "com.mysql.cj.jdbc.Driver"
-            SPRING_DATASOURCE_URL: "jdbc:mysql://192.168.99.100:3306/mydb"
+            SPRING_DATASOURCE_URL: "jdbc:mysql://db/mydb"
             spring.datasource.username: "docker"
             spring.datasource.password: "docker"
 

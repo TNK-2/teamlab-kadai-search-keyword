@@ -18,8 +18,8 @@ jar {
     baseName = 'teamlab-spring-boot-docker'
     version =  '0.1.0'
 }
-
-group = 'kadai'
+//https://hub.docker.com/のDockerId(ログインID)で切り替えください
+group = 'dockerid'
 
 task buildDocker(type: Docker, dependsOn: build) {
   applicationName = jar.baseName
@@ -27,6 +27,10 @@ task buildDocker(type: Docker, dependsOn: build) {
   doFirst {
     copy {
       from jar
+      into "${stageDir}/target"
+    }
+    copy {
+      from "wait.sh"
       into "${stageDir}/target"
     }
   }
