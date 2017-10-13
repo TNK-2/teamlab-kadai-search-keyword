@@ -6,7 +6,6 @@ services:
         ports:
             - "3306:3306"
         volumes:
-            - ./sql/:/docker-entrypoint-initdb.d
             - ./sql/config/:/etc/mysql/conf.d
         environment:
             MYSQL_DATABASE: mydb
@@ -21,6 +20,7 @@ services:
             - "8080:8080"
         volumes:
             - .:/app
+        command: sh ./wait.sh db docker docker
         environment:
             spring.datasource.driverClassName: "com.mysql.cj.jdbc.Driver"
             SPRING_DATASOURCE_URL: "jdbc:mysql://db/mydb"

@@ -33,6 +33,10 @@ task buildDocker(type: Docker, dependsOn: build) {
       from "wait.sh"
       into "${stageDir}/target"
     }
+    copy {
+      from "sql/mydb.sql"
+      into "${stageDir}/target"
+    }
   }
 }
 
