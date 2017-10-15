@@ -5,11 +5,20 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta charset="UTF-8"/>
 </head>
+<style>
+table {
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+}
+</style>
 <body>
   <p>Hello, チームラボ!</p>
   <p>検索時間：<span th:text="${searchtime}"></span> ミリ秒</p>
   <p>検索結果数：<span th:text="${result}"></span> 件</p>
-  <p>結果一覧</p>
+  <p>結果一覧（10件まで）</p>
 
   <div class="span12">
   <table id="myTableId" dt:table="true">

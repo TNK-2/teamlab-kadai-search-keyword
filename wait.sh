@@ -17,4 +17,4 @@ done
 
 echo "MySQL is up - executing command"
 
-exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar
+exec java $JAVA_OPTS -Xmx1024m -Djava.security.egd=file:/dev/./urandom -jar /app.jar

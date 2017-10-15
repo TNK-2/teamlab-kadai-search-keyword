@@ -38,10 +38,12 @@ public class PageService {
 
         //ページごとにユーザの閲覧数
         for (int i = 0; i < pages.size(); i++) {
+            boolean isFound = false;
             for (int j = 0; j < activitys.size(); j++) {
                 if (pages.get(i).getId() == activitys.get(j).getPageId()) {
                     for (int k = 0; k < users.size(); k++) {
                         if (users.get(k).getId() == activitys.get(j).getUserId()) {
+                            isFound = true;
                             if (userPageMap.containsKey(users.get(k).getId())) {
                                 userPageMap.get(users.get(k).getId()).viewCount = userPageMap.get(users.get(k).getId()).viewCount + 1;
                             } else {
@@ -57,6 +59,13 @@ public class PageService {
                     }
                 }
             }
+            if (!isFound) {
+                UserPage userPage = new UserPage();
+                userPage.pageId = pages.get(i).getId();
+                userPage.pageTitle = pages.get(i).getTitle();
+                userPageList.add(userPage);
+            }
+
         }
 
         //ユーザIDでソート

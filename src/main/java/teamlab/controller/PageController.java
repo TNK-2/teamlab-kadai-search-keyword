@@ -33,8 +33,8 @@ public class PageController {
         List<UserPage> list = pageService.findUserViewedPage(keyword);
 
         long estimatedTime = System.currentTimeMillis() - start;
-
-        model.addAttribute("userpages", list);
+        List<UserPage> subList = list.size() > 10 ? list.subList(0, 10) : list;
+        model.addAttribute("userpages", subList);
         model.addAttribute("searchtime", estimatedTime);
         model.addAttribute("result", list.size());
 
