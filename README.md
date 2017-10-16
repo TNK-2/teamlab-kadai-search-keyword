@@ -1,7 +1,22 @@
 # チームラボ課題
 
 キーワード検索の`速度改善`課題です。
-
+### プロジェクト構成
+```
+├── Dockerfile：Dockerビルドファイル
+├── README.md
+├── bin
+├── build
+├── build.gradle：Gradleのビルドファイル
+├── docker-compose.yml：Docker実行ファイル
+├── docker-run-example：Dockerのサンプル実行
+├── gradle
+├── gradlew
+├── gradlew.bat
+├── sql：データベースDump
+├── src：ソースコード
+└── wait.sh
+```
 ### データベース構成
 1. page <br>
  ページ情報を格納するテーブルです。
@@ -54,6 +69,7 @@ https://hub.docker.com/ に入って、`DockerID`作成ください。<br>
 - Docker設定ファイル変更<br>
 `プロジェクトのディレクトリ`に移動して<br>
 ` build.gradle & docker-compose.yml` ファイルの中に自分の`DockerId`で変更する。<br>
+- データベースのチューリングがあれば、sql/mydb.sqlファイルに反映ください。<br>
 - docker イメージ作成して、イメージ起動する<br>
 `プロジェクトのディレクトリ`に移動して、以下のコマンドを実行
 
