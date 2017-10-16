@@ -59,13 +59,15 @@
     * ユーザの閲覧履歴を格納するテーブルです。
 
 ### ローカル環境構築
-1. 課題ソースコードクローン
+
+#### 1. 課題ソースコードクローン
 
 ```
 git clone https://github.com/team-lab/teamlab-kadai-search-keyword.git
 ```
 
-2. Docker インストール手順
+#### 2. Docker インストール手順
+
 * Macbook: Docker for Macのインストール
     * 以下のURLより Docker for Mac をダウンロードしてインストールします
     * https://download.docker.com/mac/stable/Docker.dmg
@@ -82,7 +84,7 @@ docker-machine --version
 
 エラーが出なければ、Dockerのインストールは成功です！
 
-3. サンプル・アプリケーションの起動
+#### 3. サンプル・アプリケーションの起動
 
 課題ソースコードのディレクトリからdocker-run-exampleのフォルダーに入って、下記コマンドを実行してください
 
@@ -92,6 +94,6 @@ docker-compose up -d
 
 ブラウザで `http://localhost:8080` 確認
 
-4. Eclipseのインストール
+#### 4. Eclipseのインストール
 
 TODO: インストール方法とプロジェクトのインポート方法追記よろ！
