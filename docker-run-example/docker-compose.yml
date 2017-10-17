@@ -20,7 +20,7 @@ services:
             - "8080:8080"
         volumes:
             - .:/app
-        command: sh ./wait.sh db docker docker
+        command: sh ./startup.sh db docker docker
         environment:
             spring.datasource.driverClassName: "com.mysql.cj.jdbc.Driver"
             SPRING_DATASOURCE_URL: "jdbc:mysql://db/mydb"

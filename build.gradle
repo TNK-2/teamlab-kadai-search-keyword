@@ -19,7 +19,7 @@ jar {
     version =  '0.1.0'
 }
 //https://hub.docker.com/のDockerId(ログインID)で切り替えください
-group = 'dockerid'
+group = 'kadai'
 
 task buildDocker(type: Docker, dependsOn: build) {
   applicationName = jar.baseName
@@ -30,7 +30,7 @@ task buildDocker(type: Docker, dependsOn: build) {
       into "${stageDir}/target"
     }
     copy {
-      from "wait.sh"
+      from "startup.sh"
       into "${stageDir}/target"
     }
     copy {
