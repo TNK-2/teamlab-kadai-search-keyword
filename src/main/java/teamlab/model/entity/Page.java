@@ -12,11 +12,11 @@ import javax.persistence.Table;
 public class Page {
 
     @Id
-    private Integer id;
+    private int id;
 
     private String title;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 

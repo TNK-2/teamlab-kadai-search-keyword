@@ -21,16 +21,16 @@ public class Activity {
     private Date created;
 
 
-    private Integer pageId;
+    private int pageId;
 
 
-    private Integer userId;
+    private int userId;
 
     public Date getCreated() {
         return created;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -38,7 +38,7 @@ public class Activity {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public int getUserId() {
         return userId;
     }
 
@@ -46,7 +46,7 @@ public class Activity {
         this.userId = userId;
     }
 
-    public Integer getPageId() {
+    public int getPageId() {
         return pageId;
     }
 
