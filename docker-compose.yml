@@ -6,8 +6,8 @@ services:
         ports:
             - "3306:3306"
         volumes:
-            - ./sql/:/docker-entrypoint-initdb.d
-            - ./sql/config/:/etc/mysql/conf.d
+            - ./src/sql/:/docker-entrypoint-initdb.d
+            - ./src/sql/config/:/etc/mysql/conf.d
         environment:
             MYSQL_DATABASE: mydb
             MYSQL_USER: docker

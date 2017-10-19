@@ -10,7 +10,7 @@ password="$1"
 mvn package
 
 echo "Waiting for mysql"
-until mysql -h"$host" -u"$user" -p"$password" mydb &> /dev/null
+until mysql -h"$host" -u"$user" -p"$password" mydb < src/sql/after.sql &> /dev/null
 do
         sleep 1
         echo "Waiting for mysql"
