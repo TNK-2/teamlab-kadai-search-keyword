@@ -41,17 +41,19 @@
 ```
 ├── Dockerfile：Dockerビルドファイル
 ├── README.md
-├── bin
-├── build
-├── build.gradle：Gradleのビルドファイル
 ├── docker-compose.yml：Docker実行ファイル
-├── docker-run-example：Dockerのサンプル実行
-├── gradle
-├── gradlew
-├── gradlew.bat
-├── sql：データベースDump
+├── pom.xml：Maven設定ファイル
 ├── src：ソースコード
-└── startup.sh:Docker起動時に実行されるシェルスクリプト
+│   ├── main
+│   │   ├── java
+│   │   └── resources
+│   │
+│   └── sql
+│       ├── after.sql：変更用SQL文指定
+│       ├── config
+│       │   └── my.cnf：DBエンジンの設定
+│       └── mydb.sql：初期のDBデータ
+└── startup.sh：Docker起動時に実行されるシェルスクリプト
 ```
 
 ### 開発環境
