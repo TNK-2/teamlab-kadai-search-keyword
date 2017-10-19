@@ -7,9 +7,10 @@ user="$1"
 shift
 password="$1"
 
+mvn package
 
 echo "Waiting for mysql"
-until mysql -h"$host" -u"$user" -p"$password" mydb < mydb.sql &> /dev/null
+until mysql -h"$host" -u"$user" -p"$password" mydb &> /dev/null
 do
         sleep 1
         echo "Waiting for mysql"
@@ -17,4 +18,4 @@ done
 
 echo "MySQL is up - executing command"
 
-exec java $JAVA_OPTS -Xmx1024m -Djava.security.egd=file:/dev/./urandom -jar /app.jar
+exec java $JAVA_OPTS -Xmx1024m -Djava.security.egd=file:/dev/./urandom -jar /usr/src/app/target/teamlab-spring-boot-docker-0.1.0.war
