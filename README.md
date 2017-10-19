@@ -59,7 +59,7 @@
 ### 開発環境
 
 * 言語: Java
-* ビルド: Gradle
+* ビルド: Maven
 * フレームワーク: Spring Boot
 * データベース:　Mysql
 * コンテナ: Docker
