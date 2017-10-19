@@ -96,15 +96,16 @@ docker-machine --version
 
 エラーが出なければ、Dockerのインストールは成功です！
 
-#### 3. サンプル・アプリケーションの起動
+#### 3. アプリケーションの起動
 
-課題ソースコードのディレクトリからdocker-run-exampleのフォルダーに入って、下記コマンドを実行してください
+課題ソースコードのディレクトリで下記コマンドを実行してください
 
 ```
 docker-compose up -d
 ```
 
-ブラウザで `http://localhost:8080` 確認
+ブラウザで `http://localhost:8080` 確認、
+ソース修正したら、`docker-compose up -d` 再度実行してください。
 
 #### 4. Eclipseのインストール
 
