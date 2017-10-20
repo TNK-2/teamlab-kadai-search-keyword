@@ -43,10 +43,31 @@
 ├── README.md
 ├── docker-compose.yml：Docker実行ファイル
 ├── pom.xml：Maven設定ファイル
-├── src：ソースコード
+├── src
 │   ├── main
 │   │   ├── java
+│   │   │   └── teamlab
+│   │   │       ├── App.java
+│   │   │       ├── controller：コントローラ
+│   │   │       │   └── PageController.java
+│   │   │       └── model
+│   │   │           ├── dao
+│   │   │           │   ├── ActivityDao.java
+│   │   │           │   ├── PageDao.java
+│   │   │           │   └── UserDao.java
+│   │   │           ├── entity：エンティティ
+│   │   │           │   ├── Activity.java
+│   │   │           │   ├── Page.java
+│   │   │           │   └── User.java
+│   │   │           ├── response：レスポンス
+│   │   │           │   └── UserPage.java
+│   │   │           └── service：サービス
+│   │   │               └── PageService.java
 │   │   └── resources
+│   │       ├── application.yml
+│   │       └── templates
+│   │           ├── index.html：ホームページ
+│   │           └── page.html：検索結果ページ
 │   │
 │   └── sql
 │       ├── alter.sql：変更用SQL文指定
@@ -71,7 +92,8 @@
    * ユーザ情報を格納するテーブルです。
 * activity 10万件
    * ユーザの閲覧履歴を格納するテーブルです。
-
+* ER図
+![ER図](https://raw.githubusercontent.com/team-lab/teamlab-kadai-search-keyword/master/ER.png "ER")
 ### ローカル環境構築
 
 #### 1. 課題ソースコードクローン
