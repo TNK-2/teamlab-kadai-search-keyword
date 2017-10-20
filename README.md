@@ -107,7 +107,7 @@ docker-compose up -d
 ```
 
 ブラウザで `http://localhost:8080` 確認、
-ソース修正したら、`docker-compose up -d` 再度実行してください。
+ソース修正したら、`docker-compose restart` 再度実行してください。
 
 #### 4. Eclipseのインストール
 
