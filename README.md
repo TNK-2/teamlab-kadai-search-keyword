@@ -86,6 +86,9 @@
 * コンテナ: Docker
 
 ### データベース構成
+
+![er](https://user-images.githubusercontent.com/342957/31817043-7d1a2040-b5cd-11e7-928d-205952d75b35.png)
+
 * page 150万件
    * ページ情報を格納するテーブルです。
 * user 1万件
@@ -130,7 +133,3 @@ docker-compose up -d
 
 ブラウザで `http://localhost:8080` 確認、
 ソース修正したら、`docker-compose restart` 再度実行してください。
-
-#### 4. Eclipseのインストール
-
-TODO: インストール方法とプロジェクトのインポート方法追記よろ！
