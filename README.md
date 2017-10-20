@@ -49,7 +49,7 @@
 │   │   └── resources
 │   │
 │   └── sql
-│       ├── after.sql：変更用SQL文指定
+│       ├── alter.sql：変更用SQL文指定
 │       ├── config
 │       │   └── my.cnf：DBエンジンの設定
 │       └── mydb.sql：初期のDBデータ
