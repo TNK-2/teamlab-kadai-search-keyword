@@ -100,7 +100,7 @@
 ### ローカル環境構築
 
 #### 1. 課題ソースコードクローン
-* Macbook: “/Users”, “/Volumes”, “/tmp”, “/private”のディレクトリ下においてください。
+* Macbook: Dockerはデフォルト“/Users”, “/Volumes”, “/tmp”, “/private”のディレクトリを参考できるので、その下においてください。
 ```
 git clone https://github.com/team-lab/teamlab-kadai-search-keyword.git
 ```
