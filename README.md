@@ -73,7 +73,8 @@
 │       ├── alter.sql：変更用SQL文指定
 │       ├── config
 │       │   └── my.cnf：DBエンジンの設定
-│       └── mydb.sql：初期のDBデータ
+│       └── init
+│           └── mydb.sql：初期のDBデータ
 └── startup.sh：Docker起動時に実行されるシェルスクリプト
 ```
 
