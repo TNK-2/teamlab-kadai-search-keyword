@@ -15,6 +15,7 @@ build/
 .project
 .classpath
 .settings
+.metadata
 
 /target/
 /.settings/
