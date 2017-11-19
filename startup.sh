@@ -18,4 +18,4 @@ done
 
 echo "MySQL is up - executing command"
 
-exec java $JAVA_OPTS -Xmx1024m -Djava.security.egd=file:/dev/./urandom -jar /usr/src/app/target/teamlab-spring-boot-docker-0.1.0.war
+exec java $JAVA_OPTS -Xmx2048m -XX:PermSize=128m -XX:MaxPermSize=128m -XX:NewRatio=2 -XX:SurvivorRatio=8 -Djava.security.egd=file:/dev/./urandom -jar /usr/src/app/target/teamlab-spring-boot-docker-0.1.0.war
