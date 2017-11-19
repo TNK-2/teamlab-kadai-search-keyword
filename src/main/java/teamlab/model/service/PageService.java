@@ -29,40 +29,49 @@ public class PageService {
     private PageDao pageDao;
 
     public List<UserPage> findUserViewedPage(String keyWord) {
-        List<Page> pages = pageDao.findPageByTitle(keyWord);
+    	List<Page> pages = null;
+    	if("".equals(keyWord) || null == keyWord){
+    		pages = pageDao.findAll();
+    	} else {
+    		pages = pageDao.findPageByTitle(keyWord);
+    	}
         List<Activity> activitys = activityDao.findAll();
-        List<User> users = userDao.findAll();
 
         Map<Integer, UserPage> userPageMap = new HashMap<>();
         List<UserPage> userPageList = new ArrayList<>();
 
-        //ページごとにユーザの閲覧数
-        for (int i = 0; i < pages.size(); i++) {
+        List<Activity> remainingActivitys = new ArrayList<>();
+        UserPage userPage = null;
+         //ページごとにユーザの閲覧数
+        for (Page page : pages) {
             boolean isFound = false;
-            for (int j = 0; j < activitys.size(); j++) {
-                if (pages.get(i).getId() == activitys.get(j).getPageId()) {
-                    for (int k = 0; k < users.size(); k++) {
-                        if (users.get(k).getId() == activitys.get(j).getUserId()) {
-                            isFound = true;
-                            if (userPageMap.containsKey(users.get(k).getId())) {
-                                userPageMap.get(users.get(k).getId()).viewCount = userPageMap.get(users.get(k).getId()).viewCount + 1;
-                            } else {
-                                UserPage userPage = new UserPage();
-                                userPage.pageId = pages.get(i).getId();
-                                userPage.pageTitle = pages.get(i).getTitle();
-                                userPage.userId = users.get(k).getId();
-                                userPage.userName = users.get(k).getName();
-                                userPage.viewCount = 1;
-                                userPageMap.put(users.get(k).getId(), userPage);
-                            }
+            for (Activity activity : activitys) {
+            	if(activity.getPageId() == page.getId()){
+            		User user = userDao.findOne(activity.getUserId());
+                    if (user != null) {
+                        isFound = true;
+                        if (userPageMap.containsKey(user.getId())) {
+                            userPageMap.get(user.getId()).viewCount = userPageMap.get(user.getId()).viewCount + 1;
+                        } else {
+                            userPage = new UserPage();
+                            userPage.pageId = page.getId();
+                            userPage.pageTitle = page.getTitle();
+                            userPage.userId = user.getId();
+                            userPage.userName = user.getName();
+                            userPage.viewCount = 1;
+                            userPageMap.put(user.getId(), userPage);
                         }
                     }
-                }
+            	} else {
+            		remainingActivitys.add(activity);
+            	}
             }
+            activitys = remainingActivitys;
+            remainingActivitys.clear();
             if (!isFound) {
-                UserPage userPage = new UserPage();
-                userPage.pageId = pages.get(i).getId();
-                userPage.pageTitle = pages.get(i).getTitle();
+                userPage = new UserPage();
+                userPage.pageId = page.getId();
+                userPage.pageTitle = page.getTitle();
                 userPageList.add(userPage);
             }
 
