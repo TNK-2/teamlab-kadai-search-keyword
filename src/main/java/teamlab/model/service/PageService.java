@@ -1,6 +1,5 @@
 package teamlab.model.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -9,81 +8,98 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import teamlab.model.dao.ActivityDao;
-import teamlab.model.dao.PageDao;
+import teamlab.model.dao.PageinfDao;
 import teamlab.model.dao.UserDao;
-import teamlab.model.entity.Activity;
-import teamlab.model.entity.Page;
+import teamlab.model.entity.Pageinf;
 import teamlab.model.entity.User;
+import teamlab.model.entity.ViewCount;
 import teamlab.model.response.UserPage;
+import teamlab.utils.SearchList;
 
 @Service
 public class PageService {
+	
     @Autowired
     private UserDao userDao;
-
+    
     @Autowired
-    private ActivityDao activityDao;
-
-    @Autowired
-    private PageDao pageDao;
+    private PageinfDao pageinfDao;
 
     public List<UserPage> findUserViewedPage(String keyWord) {
-    	List<Page> pages = null;
-    	if("".equals(keyWord) || null == keyWord){
-    		pages = pageDao.findAll();
-    	} else {
-    		pages = pageDao.findPageByTitle(keyWord);
-    	}
-        List<Activity> activitys = activityDao.findAll();
+    	
+    		// ユーザーと紐付いていないページの取得（検索結果の先頭になるため）
+    		List<Pageinf> noUserPages = null;
+    		int hits = 0;
+    		if("".equals(keyWord) || null == keyWord) {
+    			noUserPages = pageinfDao.findNoUserPage();
+    			hits = pageinfDao.countNoUserPage().get(0);
+    		} else {
+    			noUserPages = pageinfDao.findNoUserPage(keyWord + "%");
+    			hits = pageinfDao.countNoUserPage(keyWord + "%").get(0);
+    		}
+    		
+    		
+    		// ユーザーと紐付いていないページの格納（検索結果の先頭になるため）
+    		int count = 0;
+    		UserPage userPage = null;
+    		SearchList<UserPage> userPageList = new SearchList<>(10);
+    		for (Pageinf page : noUserPages) {	
+    			userPage = new UserPage();
+    			userPage.pageId = page.getId();
+    			userPage.pageTitle = page.getTitle();
+    			userPageList.add(userPage);
+    			
+    			if(++count >= 10) {
+    				break;
+    			}
+    		}
+    		
+    		
+    		// ユーザーと紐付いているページの取得（検索結果の後方になる）
+    		List<ViewCount> userPages = null;
+    		// ユーザーID、閲覧回数、ページID、ページタイトルを取得
+    		if("".equals(keyWord) || null == keyWord) {
+    			userPages = pageinfDao.findUserPage();
+    			hits += userPages.size();
+    		} else {
+    			userPages = pageinfDao.findUserPage(keyWord + "%");
+    			hits += userPages.size();
+    		}
 
-        Map<Integer, UserPage> userPageMap = new HashMap<>();
-        List<UserPage> userPageList = new ArrayList<>();
-
-        List<Activity> remainingActivitys = new ArrayList<>();
-        UserPage userPage = null;
-         //ページごとにユーザの閲覧数
-        for (Page page : pages) {
-            boolean isFound = false;
-            for (Activity activity : activitys) {
-            	if(activity.getPageId() == page.getId()){
-            		User user = userDao.findOne(activity.getUserId());
-                    if (user != null) {
-                        isFound = true;
-                        if (userPageMap.containsKey(user.getId())) {
-                            userPageMap.get(user.getId()).viewCount = userPageMap.get(user.getId()).viewCount + 1;
-                        } else {
-                            userPage = new UserPage();
-                            userPage.pageId = page.getId();
-                            userPage.pageTitle = page.getTitle();
-                            userPage.userId = user.getId();
-                            userPage.userName = user.getName();
-                            userPage.viewCount = 1;
-                            userPageMap.put(user.getId(), userPage);
-                        }
-                    }
-            	} else {
-            		remainingActivitys.add(activity);
-            	}
-            }
-            activitys = remainingActivitys;
-            remainingActivitys.clear();
-            if (!isFound) {
-                userPage = new UserPage();
-                userPage.pageId = page.getId();
-                userPage.pageTitle = page.getTitle();
-                userPageList.add(userPage);
-            }
-
-        }
-
-        //ユーザIDでソート
-        Object[] mapkey = userPageMap.keySet().toArray();
-        Arrays.sort(mapkey);
-        for (Integer key : userPageMap.keySet()) {
-            userPageList.add(userPageMap.get(key));
-        }
-
+    		
+    		if(count < 10) {
+    			// ユーザーと紐付いているページの格納（検索結果の後方になる）
+    			Map<Integer, UserPage> userPageMap = new HashMap<>();
+        		for (ViewCount page : userPages) {
+        			User user = userDao.findOne(page.getUserId());
+        			if (!userPageMap.containsKey(user.getId())) {
+        				userPage = new UserPage();
+        				userPage.pageId = page.getPageId();
+        				userPage.pageTitle = page.getTitle();
+        				userPage.userId = user.getId();
+        				userPage.userName = user.getName();
+        				userPage.viewCount = page.getViewCount(); //閲覧回数
+        				userPageMap.put(user.getId(), userPage);
+        				++count;
+        			}
+        			if(count >= 10) {
+        				break;
+        			}
+        		}
+        		
+        		//ユーザIDでソート
+        		Object[] mapkey = userPageMap.keySet().toArray();
+        		Arrays.sort(mapkey);
+        		for (Integer key : userPageMap.keySet()) {
+        			userPageList.add(userPageMap.get(key));
+        		}
+    		}
+    		
+    		
+    		// ヒット件数の格納
+    		userPageList.setHits(hits);
         return userPageList;
     }
+    
+    
 }
